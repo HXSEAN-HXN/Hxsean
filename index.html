@@ -43,6 +43,7 @@
       border-radius: 5px;
       color: #00e8ff;
       background: transparent;
+      cursor: pointer;
       transition: 0.3s ease;
     }
     .button:hover {
@@ -70,12 +71,13 @@
       0x8CE5Ef312B14767dd25A2E6A35f1c4CC386404e5
     </a></p>
 
-<div>
-  <a href="https://pancakeswap.finance/swap?outputCurrency=0x8CE5Ef312B14767dd25A2E6A35f1c4CC386404e5" class="button" target="_blank">Buy on PancakeSwap</a>
-  <a href="https://bscscan.com/address/0x8ce5ef312b14767dd25a2e6a35f1c4cc386404e5" class="button" target="_blank">View on BscScan</a>
-  <a href="whitepaper.html" class="button" target="_blank">View Whitepaper</a>
-  <a href="roadmap.html" class="button" target="_blank">View Roadmap</a>
-</div>
+    <div>
+      <a href="https://pancakeswap.finance/swap?outputCurrency=0x8CE5Ef312B14767dd25A2E6A35f1c4CC386404e5" class="button" target="_blank">Buy on PancakeSwap</a>
+      <a href="https://bscscan.com/address/0x8ce5ef312b14767dd25a2e6a35f1c4cc386404e5" class="button" target="_blank">View on BscScan</a>
+      <a href="whitepaper.html" class="button" target="_blank">View Whitepaper</a>
+      <a href="roadmap.html" class="button" target="_blank">View Roadmap</a>
+      <button id="connectWalletBtn" class="button">Connect Wallet</button>
+    </div>
 
     <h2>About HXN</h2>
     <p>HXSEAN (HXN) is a utility-driven decentralized token aimed at providing future staking, governance, and DeFi integrations on BNB Smart Chain. It's built by a community-first team with transparency and growth in mind.</p>
@@ -104,5 +106,27 @@
 
     <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">© 2025 HXSEAN. Built for the blockchain community.</p>
   </div>
+
+  <script>
+    const connectBtn = document.getElementById('connectWalletBtn');
+
+    async function connectWallet() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const account = accounts[0];
+          connectBtn.innerText = `Connected: ${account.substring(0, 6)}...${account.slice(-4)}`;
+          connectBtn.disabled = true;
+        } catch (err) {
+          alert('Connection rejected');
+          console.error(err);
+        }
+      } else {
+        alert('MetaMask is not installed. Please install it to connect.');
+      }
+    }
+
+    connectBtn.addEventListener('click', connectWallet);
+  </script>
 </body>
 </html>
