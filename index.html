@@ -62,8 +62,12 @@
 <body>
   <div class="container">
     <img src="logo.png" alt="HXSEAN Logo" class="logo" />
-    <h1>HXSEAN (HXN)</h1>
-    <p>Decentralized token built on BNB Smart Chain.<br>Launched: 18 June 2025.</p>
+<h1>HXSEAN (HXN)</h1>
+<p>
+  Decentralized token built on BNB Smart Chain.<br>
+  📅 Launched: 18 June 2025<br>
+  🕓 Age: <span id="project-age"></span>
+</p>
 
     <h3>🔗 Token Information</h3>
     <p><strong>Contract:</strong><br>
@@ -121,26 +125,37 @@
     <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">© 2025 HXSEAN. Built for the blockchain community.</p>
   </div>
 
-  <script>
-    const connectBtn = document.getElementById('connectWalletBtn');
+<script>
+  // Wallet Connect Button
+  const connectBtn = document.getElementById('connectWalletBtn');
 
-    async function connectWallet() {
-      if (typeof window.ethereum !== 'undefined') {
-        try {
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          const account = accounts[0];
-          connectBtn.innerText = `Connected: ${account.substring(0, 6)}...${account.slice(-4)}`;
-          connectBtn.disabled = true;
-        } catch (err) {
-          alert('Connection rejected');
-          console.error(err);
-        }
-      } else {
-        alert('MetaMask is not installed. Please install it to connect.');
+  async function connectWallet() {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        connectBtn.innerText = `Connected: ${account.substring(0, 6)}...${account.slice(-4)}`;
+        connectBtn.disabled = true;
+      } catch (err) {
+        alert('Connection rejected');
+        console.error(err);
       }
+    } else {
+      alert('MetaMask is not installed. Please install it to connect.');
     }
+  }
 
-    connectBtn.addEventListener('click', connectWallet);
-  </script>
+  connectBtn.addEventListener('click', connectWallet);
+
+  // Project Age Display
+  const launchDate = new Date("2025-06-18");
+  const today = new Date();
+  const timeDiff = today - launchDate;
+  const daysSinceLaunch = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  const ageElement = document.getElementById("project-age");
+  if (ageElement) {
+    ageElement.innerText = `${daysSinceLaunch} day${daysSinceLaunch !== 1 ? 's' : ''}`;
+  }
+</script>
 </body>
 </html>
