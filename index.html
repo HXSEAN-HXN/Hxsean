@@ -148,14 +148,21 @@
   connectBtn.addEventListener('click', connectWallet);
 
   // Project Age Display
-  const launchDate = new Date("2025-06-18");
-  const today = new Date();
-  const timeDiff = today - launchDate;
-  const daysSinceLaunch = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-  const ageElement = document.getElementById("project-age");
-  if (ageElement) {
-    ageElement.innerText = `${daysSinceLaunch} day${daysSinceLaunch !== 1 ? 's' : ''}`;
-  }
+const launchDate = new Date("2025-06-18");
+const today = new Date();
+
+// Normalize times to ignore hours/minutes for exact day count
+launchDate.setHours(0, 0, 0, 0);
+today.setHours(0, 0, 0, 0);
+
+const timeDiff = today - launchDate;
+const daysSinceLaunch = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+
+const ageElement = document.getElementById("project-age");
+if (ageElement) {
+  ageElement.innerText = `${daysSinceLaunch} day${daysSinceLaunch !== 1 ? 's' : ''}`;
+}
+
 </script>
 </body>
 </html>
